@@ -1,12 +1,11 @@
 import './App.css';
+import SingIn from './components/signin-page'
 
 function App() {
   return (
-    <div className="App ">
-      <header className="App-header">
-        dipak
-      </header>
-    </div>
+    <h1 className=''>
+      <SingIn />
+    </h1>    
   );
 }
 
