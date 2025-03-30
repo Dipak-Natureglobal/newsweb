@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import {getAuth, GoogleAuthProvider} from "firebase/auth"
+import { getAuth, GoogleAuthProvider, setPersistence, browserLocalPersistence } from "firebase/auth";
 
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA0bIBQDkhGqU4IiseqVyO9mVYPizcfRCE",
   authDomain: "newsweb-a72d1.firebaseapp.com",
@@ -12,6 +13,19 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app=initializeApp(firebaseConfig);
-export const auth =getAuth(app);
-export const googleProvider= new GoogleAuthProvider(app);
+const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Authentication
+const auth = getAuth(app);
+
+// Set persistence mode to local (so session persists across page reloads)
+setPersistence(auth, browserLocalPersistence)
+  .catch((error) => {
+    // Handle errors here
+    console.error("Error setting persistence:", error);
+  });
+
+// Initialize Google Auth Provider
+const googleProvider = new GoogleAuthProvider();
+
+export { auth, googleProvider };
