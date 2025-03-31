@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./navbar";
 import Home from "./home"
+import Footer from "./footer";
 
 
 function Main() {
@@ -9,9 +10,8 @@ function Main() {
     return (
         <div className="grid grid-row-2">
             <Navbar setMenu={setMenu}/>
-            <Home  menu={menu}/>
-            
-           
+            <Home  menu={menu}/> 
+            <Footer /> 
         </div>
     )
 }
