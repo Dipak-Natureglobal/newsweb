@@ -1,6 +1,6 @@
 import { Routes , Route} from 'react-router-dom';
 import './App.css';
-import Main from './components/home';
+import Main from './components/main';
 import SingIn from './components/signin-page'
 
 
