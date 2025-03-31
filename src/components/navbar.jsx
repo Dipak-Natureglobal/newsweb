@@ -108,14 +108,14 @@ function Navbar() {
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="md:hidden flex flex-col items-center mt-4 space-y-4">
-                    <button className="font-semibold">Home</button>
-                    <button className="font-semibold">News</button>
-                    <button className="font-semibold">Sports</button>
-                    <button className="font-semibold">Reel</button>
-                    <button className="font-semibold">WorkLife</button>
-                    <button className="font-semibold">Travel</button>
-                    <button className="font-semibold">Future</button>
-                    <button className="font-semibold">Culture</button>
+                    <button className="font-semibold" onClick={toggleMenu}>Home</button>
+                    <button className="font-semibold" onClick={toggleMenu}>News</button>
+                    <button className="font-semibold" onClick={toggleMenu}>Sports</button>
+                    <button className="font-semibold" onClick={toggleMenu}>Reel</button>
+                    <button className="font-semibold" onClick={toggleMenu}>WorkLife</button>
+                    <button className="font-semibold" onClick={toggleMenu}>Travel</button>
+                    <button className="font-semibold" onClick={toggleMenu}>Future</button>
+                    <button className="font-semibold" onClick={toggleMenu}>Culture</button>
                 </div>
             )}
         </div>
