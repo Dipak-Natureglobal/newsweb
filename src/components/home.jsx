@@ -41,7 +41,7 @@ function Home(props) {
                 <div className="flex justify-center mb-4 ">
                     <TextField
                         variant="outlined"
-                        placeholder="Filter Articles by Searching..."
+                        placeholder="Filter Articles..."
                         value={searchTerm}
                         onChange={handleSearchChange}
                         fullWidth
@@ -52,7 +52,7 @@ function Home(props) {
                                 </InputAdornment>
                             ),
                         }}
-                        className="max-w-md rounded-lg shadow-md bg-white/70"
+                        className="max-w-lg rounded-lg shadow-white bg-white/70"
                         sx={{
                             "& .MuiOutlinedInput-root": {
                                 borderRadius: "20px",
@@ -79,10 +79,10 @@ function Home(props) {
                     </div>
                 ) : (
                     // If filtered news is empty, show a "No Data Found" message
-                    filteredNews.length === 0 ? (
+                    filteredNews && filteredNews.length === 0 ? (
                         <div className="col-span-3 text-center">
                             <img src={NoData} alt="No Data Found" width={450} height={450} className="mx-auto mb-2" />
-                            <p className="text-xl font-semibold">No data found</p>
+                            <p className="text-xl font-semibold">No results found based on your filter criteria.</p>
                         </div>
                     ) : (
 
