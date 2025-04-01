@@ -8,7 +8,7 @@ function Main() {
    
  const [menu, setMenu]=useState("");
     return (
-        <div className="grid grid-row-2">
+        <div className="grid grid-row-3">
             <Navbar setMenu={setMenu}/>
             <Home  menu={menu}/> 
             <Footer /> 

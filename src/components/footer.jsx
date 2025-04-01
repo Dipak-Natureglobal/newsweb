@@ -53,7 +53,7 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                <a href="https://join.skype.com/invite/ugfL9xm7x8ta" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/+918910171611?text=Hi!" target="_blank" rel="noopener noreferrer">
                     <WhatsAppIcon fontSize="medium" className="hover:text-green-500"/>
                 </a>
                 </li>
