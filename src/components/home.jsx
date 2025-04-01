@@ -36,6 +36,8 @@ function Home(props) {
     ) : (
         newsData && newsData.map((data, index) => {
             return (
+                <>
+                
                 <div key={index} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                     <img className="rounded-t-lg w-full h-48 object-cover" src={data.urlToImage} alt={data.title} />
                     <div className="p-5">
@@ -51,6 +53,7 @@ function Home(props) {
                         </a>
                     </div>
                 </div>
+                </>
             );
         })
     )}
