@@ -41,7 +41,7 @@ function Home(props) {
                 <div className="flex justify-center mb-4 ">
                     <TextField
                         variant="outlined"
-                        placeholder="Filter News by Searching..."
+                        placeholder="Filter Articles by Searching..."
                         value={searchTerm}
                         onChange={handleSearchChange}
                         fullWidth
@@ -52,7 +52,7 @@ function Home(props) {
                                 </InputAdornment>
                             ),
                         }}
-                        className="max-w-md rounded-lg shadow-md"
+                        className="max-w-md rounded-lg shadow-md bg-white/70"
                         sx={{
                             "& .MuiOutlinedInput-root": {
                                 borderRadius: "20px",
