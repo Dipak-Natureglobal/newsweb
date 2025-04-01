@@ -41,7 +41,7 @@ function Home(props) {
                 <div className="flex justify-center mb-4 ">
                     <TextField
                         variant="outlined"
-                        placeholder="Search News..."
+                        placeholder="Filter News by Searching..."
                         value={searchTerm}
                         onChange={handleSearchChange}
                         fullWidth
