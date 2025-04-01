@@ -11,6 +11,7 @@ function Home(props) {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [error, setError] = useState("");
+   
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
@@ -23,7 +24,17 @@ function Home(props) {
     const getNews = useCallback(() => {
         setLoading(true);
         setError(""); 
-        fetch(`https://newsapi.org/v2/everything?q=${props?.menu ? props.menu : "default"}&sortBy=popularity&apiKey=4e07be5763c44a839f58df9c4f8f7ede`)
+        const apiKeys = [
+            "f4f24631b8794156aeea0bec12b39c6a",  
+            "4e07be5763c44a839f58df9c4f8f7ede", 
+            "ebb6c92a82fd42e983aabce9baea7916" 
+        ];    
+        const getRandomApiKey = () => {
+            const randomIndex = Math.floor(Math.random() * apiKeys.length);
+            return apiKeys[randomIndex];
+        };
+        const apiKey = getRandomApiKey(); 
+        fetch(`https://newsapi.org/v2/everything?q=${props?.menu ? props.menu : "default"}&sortBy=popularity&apiKey=${apiKey}`)
             .then(res => res.json())
             .then(json => {
                 if (json.status === 'error' && json.code === 'rateLimited') {
@@ -78,7 +89,7 @@ function Home(props) {
             )}
 
             {/* News Content */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[80vh]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:min-h-[80vh] lg:min-h-[80vh] md:min-h-[70vh] min-h-[60vh]">
                 {loading ? (
                     <div className="col-span-3 flex justify-center items-center xl:mt-[15rem] lg:mt-[15rem] mt-[10rem] ">
                         <div className="text-center ">
