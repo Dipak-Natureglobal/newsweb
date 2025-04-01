@@ -51,7 +51,7 @@ function Navbar(props) {
     };
 
     return (
-        <div className="bg-[#0d1114] text-white/70 px-4 py-3 fixed w-full z-[9999]">
+        <div className="bg-[#0d1114] text-white/70 px-4 py-3 fixed w-full z-[999]">
             <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                     <img src={logo} height={80} width={80} alt="Logo" />
