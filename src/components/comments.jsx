@@ -29,7 +29,7 @@ function Comments(props) {
                 name: auth.currentUser.displayName,
                 profileImg: auth.currentUser.photoURL
             })
-            toast.success("Your comment has been posted successfully!")
+            auth.currentUser &&  toast.success("Your comment has been posted successfully!")
         }
      
         catch (err) {
