@@ -3,6 +3,7 @@ import './App.css';
 import Main from './components/main';
 import SingIn from './components/signin-page';
 import React from 'react';
+import NewsDetails from './components/newsDetails';
 
 function App() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function App() {
         {/* Define normal routes */}
         <Route path="/singin" element={<SingIn />} />
         <Route path="/" element={<Main />} />
+        <Route path="/details" element={<NewsDetails />}/>
 
         {/* Add wildcard route to handle 404 errors */}
         <Route path="*" element={<NotFoundRedirect />} />

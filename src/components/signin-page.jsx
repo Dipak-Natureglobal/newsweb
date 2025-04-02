@@ -7,6 +7,7 @@ import { signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from "../firebase/setup"
 import dayjs from 'dayjs';
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer,toast } from "react-toastify";
 
 function SingIn() {
 
@@ -19,6 +20,7 @@ function SingIn() {
             auth.currentUser && navigateToHome("/")
         }
         catch (err) {
+            toast.error("Oops! Something went wrong. Try again later.");
             console.log(err)
         }
 
@@ -78,6 +80,10 @@ function SingIn() {
                     <p>Developed by <a href="https://dipakdev.in" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-500 font-bold">Dipak</a></p>
                 </div>
             </div>
+            <ToastContainer
+                autoClose={6000}
+                position="bottom-right"
+                className="!bottom-5 !right-5" />
         </div>
 
     )
