@@ -1,17 +1,27 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Comments from "./comments";
+import LoginIcon from '@mui/icons-material/Login';
+import dayjs from "dayjs";
+import { auth } from "../firebase/setup";
+
 
 
 function NewsDetails() {
     const location = useLocation();
     const navigateToHome = useNavigate();
+    const navigateToSingup = useNavigate();
+    if (!location.state || !location.state.data) {
+        navigateToHome("/"); 
+        return null; 
+      }
+    
 
     return (
         <div className="container mx-auto p-4">
             {/* Marquee Section */}
             <div className="w-full overflow-hidden bg-gray-700 text-white py-2 rounded-lg mb-4">
-                <marquee  direction="left" className="text-sm font-semibold">
+                <marquee direction="left" className="text-sm font-semibold">
                     💬 Engage with others! Leave a comment on your favorite news story! |
                     🗣️ Share your thoughts and see what others think! |
                     🏆 Highlight top comments and join trending discussions! |
@@ -21,13 +31,21 @@ function NewsDetails() {
                     🤝 Connect with like-minded people and start meaningful discussions!
                 </marquee>
             </div>
-
-            <button
-                onClick={() =>navigateToHome('/')}
-                className="mb-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition duration-300"
-            >
-                ⬅ Back
-            </button>
+            <div className="flex flex-row justify-between">
+                <button
+                    onClick={() => navigateToHome('/')}
+                    className="mb-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition duration-300"
+                >
+                    ⬅ Back
+                </button>
+                {auth.currentUser ===null && <button
+                    onClick={() => navigateToSingup('/singup')}
+                    className="mb-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition duration-300"
+                >
+                    <LoginIcon color="success" /> Log in
+                </button>}
+               
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="p-5 bg-white shadow-lg rounded-lg animate-fadeIn">
@@ -40,7 +58,7 @@ function NewsDetails() {
                     <img
                         src={location.state.data.urlToImage || "/placeholder.jpg"}
                         alt={location.state.data.title}
-                        className="w-full h-96 object-cover rounded-lg shadow-md"
+                        className="w-full h-66 object-cover rounded-lg shadow-md"
                     />
                     <button
                         onClick={(e) => {
@@ -70,8 +88,12 @@ function NewsDetails() {
 
                 <div className="p-5 bg-gray-100 shadow-lg rounded-lg animate-fadeIn min-h-[40vh]">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">Comments</h2>
-                    <Comments url={location.state.data.url}/>
+                    <Comments url={location.state.data.url} />
                 </div>
+            </div>
+
+            <div className="w-full text-center mt-12">
+                <p className="text-gray-500 text-sm">© {dayjs().year()} InsightPress. All rights reserved.</p>
             </div>
         </div>
     );

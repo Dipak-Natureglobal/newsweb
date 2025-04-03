@@ -26,10 +26,10 @@ function Navbar(props) {
         return () => unsubscribe();
     }, []);
 
-    const logout = async () => {
+   const logout = async () => {
         try {
             await signOut(auth);
-            navigate('/singin');
+            navigate('/singup');
         } catch (err) {
             console.log(err);
         }
@@ -76,9 +76,11 @@ function Navbar(props) {
                                     Logout
                                 </MenuItem>
                             </Menu>
+                            {auth.currentUser!==null &&<strong className="block sm:hidden text-[#fba64c] uppercase">{user?.displayName}</strong>}
+
                         </div>
                     ) : (
-                        <Link to="/singin">
+                        <Link to="/singup">
                             <button className="flex items-center text-white/70 mx-5 border-white p-2 w-28 font-semibold text-xs sm:text-sm">
                                 <PersonIcon className="text-white/70 mr-2" />
                                 Sign in

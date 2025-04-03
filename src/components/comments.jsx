@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { auth, database } from "../firebase/setup";
 import { ToastContainer, toast } from "react-toastify";
-
-
+import defaultProfile from "../images/defaultProfile.png"
 
 function Comments(props) {
     const [comments, setComments] = useState("");
     const [newsComments, setNewsComments] = useState([]);
     const [error, setError] = useState("");
+
+    // Add comment handler
     const handleAddComment = () => {
         if (comments.trim() === "") {
             setError("Please enter a comment.");
@@ -18,76 +19,87 @@ function Comments(props) {
         setError("");
         addComment();
     };
+
+    // Function to add a comment to Firestore
     const addComment = async () => {
+        if (auth.currentUser === null) {
+            toast.error("Please log in to continue. Kindly log in to access this feature.");
+            return;
+        }
 
         const newsDoc = doc(database, "News", `${props.url.substr(-10, 10)}`);
         const commentsRef = collection(newsDoc, "Comments");
-        auth.currentUser === null && toast.error("Please log in to continue. Kindly log in to access this feature.")
+
         try {
-            auth.currentUser && await addDoc(commentsRef, {
+            await addDoc(commentsRef, {
                 comments: comments,
                 name: auth.currentUser.displayName,
                 profileImg: auth.currentUser.photoURL
-            })
-            auth.currentUser &&  toast.success("Your comment has been posted successfully!")
+            });
+
+            toast.success("Your comment has been posted successfully!");
+            setComments(""); 
+            showAllComments();
+        } catch (err) {
+            console.log(err);
+            toast.error("Failed to post comment. Please try again.");
         }
-     
-        catch (err) {
-            console.log(err)
-        }
-    }
+    };
+
     const showAllComments = async () => {
         const newsDoc = doc(database, "News", `${props.url.substr(-10, 10)}`);
         const commentsRef = collection(newsDoc, "Comments");
+
         try {
-            const data = await getDocs(commentsRef)
+            const data = await getDocs(commentsRef);
             const filterData = data.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
-            }))
+            }));
             setNewsComments(filterData);
         } catch (err) {
             console.log(err);
+            toast.error("Failed to load comments. Please try again.");
         }
-    }
+    };
+
     useEffect(() => {
-        showAllComments();
-    }, [newsComments])
+        if (props.url) {
+            showAllComments();
+        }
+    }, [props.url]); 
 
     return (
         <div className="grid grid-row-2">
+            {console.log(newsComments)}
             <div className="mb-4">
                 <label htmlFor="comment" className="block mb-2 text-lg font-semibold text-gray-700">
                     📝 Share Your Thoughts
                 </label>
                 <div className="flex flex-row gap-2">
-
                     <input
-                        onChange={(e) => {
-
-                            setComments(e.target.value);
-                        }}
+                        onChange={(e) => setComments(e.target.value)}
                         type="text"
                         id="comment"
-                        className="bg-white border  text-sm rounded-lg focus:ring-blue-500 
-                    block w-2/3 p-3 shadow-sm 
-                   
-                   "
+                        className="bg-white border text-sm rounded-lg focus:ring-blue-500 
+                        block w-2/3 p-3 shadow-sm"
                         placeholder="Write your comment here..."
                         required
+                        value={comments}
                     />
-
-
-                    <button onClick={handleAddComment} type="button" className="text-white text-sm rounded-lg focus:ring-blue-500 
-                    block p-3 shadow-sm 
-                    bg-blue-600 hover:bg-blue-700
-                    "
-                    >ADD</button>
-
+                    <button
+                        onClick={handleAddComment}
+                        type="button"
+                        className="text-white text-sm rounded-lg focus:ring-blue-500 
+                        block p-3 shadow-sm bg-blue-600 hover:bg-blue-700"
+                    >
+                        ADD
+                    </button>
+                    
                 </div>
                 {error && <p className="text-red-500 text-sm ml-2">{error}</p>}
-
             </div>
+
             <div className="p-5 bg-white shadow-md rounded-lg">
                 {newsComments.length > 0 ? (
                     newsComments.map((data, index) => (
@@ -96,7 +108,7 @@ function Comments(props) {
                             <div className="relative">
                                 <img
                                     className="w-12 h-12 rounded-full border border-gray-300 shadow-sm object-cover"
-                                    src={data.profileImg || "/default-profile.png"}
+                                    src={data?.profileImg ?? defaultProfile}
                                     alt="User Profile"
                                 />
                                 <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-400 border-2 border-white rounded-full"></span>
@@ -115,19 +127,14 @@ function Comments(props) {
                     <p className="text-gray-500 text-center">No comments yet. Be the first to comment!</p>
                 )}
             </div>
-            <ToastContainer
-                autoClose={6000}
-                position="bottom-right"
-                className="!bottom-5 !right-5" />
 
-        </div >
-
-    )
+            <ToastContainer autoClose={6000} position="bottom-right" className="!bottom-5 !right-5" />
+        </div>
+    );
 }
+
 Comments.propTypes = {
-    url: PropTypes.string
+    url: PropTypes.string.isRequired
 };
 
 export default Comments;
-
-

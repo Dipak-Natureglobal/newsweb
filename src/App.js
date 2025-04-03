@@ -20,7 +20,7 @@ function App() {
     <div>
       <Routes>
         {/* Define normal routes */}
-        <Route path="/singin" element={<SingIn />} />
+        <Route path="/singup" element={<SingIn />} />
         <Route path="/" element={<Main />} />
         <Route path="/details" element={<NewsDetails />}/>
 
