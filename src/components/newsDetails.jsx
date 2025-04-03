@@ -4,6 +4,8 @@ import Comments from "./comments";
 import LoginIcon from '@mui/icons-material/Login';
 import dayjs from "dayjs";
 import { auth } from "../firebase/setup";
+import { signOut } from "firebase/auth";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 
@@ -15,6 +17,14 @@ function NewsDetails() {
         navigateToHome("/"); 
         return null; 
       }
+    const logout = async () => {
+            try {
+                await signOut(auth);
+                navigateToSingup('/singup');
+            } catch (err) {
+                console.log(err);
+            }
+        };
     
 
     return (
@@ -42,8 +52,15 @@ function NewsDetails() {
                     onClick={() => navigateToSingup('/singup')}
                     className="mb-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition duration-300"
                 >
-                    <LoginIcon color="success" /> Log in
+                    <LoginIcon color="success" /> Login
                 </button>}
+                {auth.currentUser !==null && <button
+                    onClick={logout}
+                    className="mb-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition duration-300"
+                >
+                    <LogoutIcon color="error" /> Logout
+                </button>}
+               
                
             </div>
 

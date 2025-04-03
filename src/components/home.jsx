@@ -8,6 +8,7 @@ import ErrorImage from "../images/error.svg"
 import { database } from "../firebase/setup";
 import { doc, setDoc } from "firebase/firestore";
 
+
 function Home(props) {
 
     const [newsData, setNewsData] = useState([]);

@@ -7,7 +7,7 @@ import { signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from "../firebase/setup"
 import dayjs from 'dayjs';
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 function SingIn() {
 
@@ -81,9 +81,9 @@ function SingIn() {
                 </div>
             </div>
             <ToastContainer
-                autoClose={6000}
+                autoClose={4000}
                 position="bottom-right"
-                className="!bottom-5 !right-5" />
+                className="mb-6 mr-6" />
         </div>
 
     )
