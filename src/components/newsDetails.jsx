@@ -6,6 +6,16 @@ import dayjs from "dayjs";
 import { auth } from "../firebase/setup";
 import { signOut } from "firebase/auth";
 import LogoutIcon from '@mui/icons-material/Logout';
+import DNews1 from "../images/dnews1.png"
+import DNews2 from "../images/dnews2.png"
+import DNews3 from "../images/dnews3.png"
+import DNews4 from "../images/dnews4.png"
+import DNews5 from "../images/dnews5.png"
+import DNews6 from "../images/dnews6.png"
+import DNews7 from "../images/dnews7.png"
+import DNews8 from "../images/dnews8.png"
+import DNews9 from "../images/dnews9.png"
+import DNews10 from "../images/dnews10.png"
 
 
 
@@ -13,6 +23,7 @@ function NewsDetails() {
     const location = useLocation();
     const navigateToHome = useNavigate();
     const navigateToSingup = useNavigate();
+    const defaultImages = [DNews1, DNews2, DNews3, DNews4, DNews5, DNews6, DNews7, DNews8, DNews9, DNews10];
     useEffect(() => {
         if (!location.state || !location.state.data) {
             navigateToHome("/");
@@ -78,7 +89,7 @@ function NewsDetails() {
                         {location.state.data.description}
                     </h4>
                     <img
-                        src={location.state.data.urlToImage || "/placeholder.jpg"}
+                        src={location.state.data.image !==null ? location.state.data.image :  defaultImages[Math.floor(Math.random() * defaultImages.length)]}
                         alt={location.state.data.title}
                         className="w-full h-66 object-cover rounded-lg shadow-md"
                     />

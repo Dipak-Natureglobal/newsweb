@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { CircularProgress, InputAdornment, TextField, Button } from "@mui/material";
 import NoData from "../images/noData.svg";
 import { Link } from "react-router-dom";
+import CloseIcon from '@mui/icons-material/Close'; 
 import ErrorImage from "../images/error.svg"
 import { database } from "../firebase/setup";
 import { doc, setDoc } from "firebase/firestore";
@@ -88,34 +89,43 @@ function Home(props) {
     return (
         <div className="bg-white/70 mt-36 mb-16 mx-auto px-4 sm:px-6 lg:px-[6rem]">
             {!loading && !error && (
-                <div className="flex justify-center mb-4 ">
-                    <TextField
-                        variant="outlined"
-                        placeholder="Filter articles by title..."
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        fullWidth
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                        className="max-w-lg rounded-lg shadow-white bg-white/70"
-                        sx={{
-                            "& .MuiOutlinedInput-root": {
-                                borderRadius: "20px",
-                            },
-                            "& .MuiInputAdornment-root": {
-                                color: "#1976d2",
-                            },
-                            "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "#1976d2",
-                            },
-                        }}
-                    />
-                </div>
+                <div className="flex justify-center mb-4">
+                <TextField
+                  variant="outlined"
+                  placeholder="Filter articles by title..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                    endAdornment: searchTerm && (
+                      <InputAdornment position="end">
+                        <CloseIcon
+                          onClick={() => handleSearchChange({ target: { value: "" } })}
+                          className="cursor-pointer"
+                          style={{ color: "#1976d2" }}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
+                  className="max-w-lg rounded-lg shadow-white bg-white/70"
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "20px",
+                    },
+                    "& .MuiInputAdornment-root": {
+                      color: "#1976d2",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#1976d2",
+                    },
+                  }}
+                />
+              </div>
             )}
 
             {/* News Content */}
@@ -151,6 +161,27 @@ function Home(props) {
                     <div className="col-span-3 text-center">
                         <img src={NoData} alt="No Data Found" width={450} height={450} className="mx-auto mb-2 xl:mt-0 lg:mt-0 mt-6" />
                         <p className="text-xl font-semibold">No results found based on your filter criteria.</p>
+                    </div>
+                ) : !newsData  ? (
+                    <div className="col-span-3 text-center">
+                        <img src={ErrorImage} alt="No Data Found" width={400} height={400} className="mx-auto mb-0  xl:mt-0 lg:mt-0 mt-[5.5rem]" />
+                        <p className="text-xl font-semibold text-red-500">Oops! You&rsquo;ve hit the request limit. Please try again in a few minutes.</p>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={getNews}
+                            sx={{
+                                mt: 1,
+                                mb:10,
+                                backgroundColor: "#000000",  // Black background color
+                                '&:hover': {
+                                    backgroundColor: "#333333",  // Slightly lighter black for the hover effect
+                                }
+                            }}
+
+                        >
+                            Retry
+                        </Button>
                     </div>
                 ) : (
                     filteredNews && filteredNews.map((data, index) => (
@@ -205,7 +236,10 @@ function Home(props) {
 
                     ))
                 )}
+
+
             </div>
+
         </div >
     );
 }
