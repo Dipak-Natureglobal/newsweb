@@ -54,7 +54,8 @@ function Home(props) {
         setLoading(true);
         setError("");
         const apiKeys = [
-          "081b56565f1f5872e9cfc85418fd43c9"
+          "081b56565f1f5872e9cfc85418fd43c9",
+          "eac0f172d397b0352f6f89ae176aa8c4"
 
         ];
         const getRandomApiKey = () => {
