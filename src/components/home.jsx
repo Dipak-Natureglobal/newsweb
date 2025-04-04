@@ -63,7 +63,7 @@ function Home(props) {
             return apiKeys[randomIndex];
         };
         const apiKey = getRandomApiKey();
-        fetch(`http://api.mediastack.com/v1/news?keywords=${props?.menu ? props.menu : "all"}&access_key=${apiKey}`)
+        fetch(`https://api.mediastack.com/v1/news?keywords=${props?.menu ? props.menu : "all"}&access_key=${apiKey}`)
             .then(res => res.json())
             .then(json => {
                 if (json.status === 'error' && json.code === 'rateLimited') {
