@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { CircularProgress, InputAdornment, TextField, Button } from "@mui/material";
 import NoData from "../images/noData.svg";
 import { Link } from "react-router-dom";
+import CloseIcon from '@mui/icons-material/Close'; 
 import ErrorImage from "../images/error.svg"
 import { database } from "../firebase/setup";
 import { doc, setDoc } from "firebase/firestore";
@@ -88,34 +89,43 @@ function Home(props) {
     return (
         <div className="bg-white/70 mt-36 mb-16 mx-auto px-4 sm:px-6 lg:px-[6rem]">
             {!loading && !error && (
-                <div className="flex justify-center mb-4 ">
-                    <TextField
-                        variant="outlined"
-                        placeholder="Filter articles by title..."
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        fullWidth
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <SearchIcon />
-                                </InputAdornment>
-                            ),
-                        }}
-                        className="max-w-lg rounded-lg shadow-white bg-white/70"
-                        sx={{
-                            "& .MuiOutlinedInput-root": {
-                                borderRadius: "20px",
-                            },
-                            "& .MuiInputAdornment-root": {
-                                color: "#1976d2",
-                            },
-                            "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "#1976d2",
-                            },
-                        }}
-                    />
-                </div>
+                <div className="flex justify-center mb-4">
+                <TextField
+                  variant="outlined"
+                  placeholder="Filter articles by title..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                    endAdornment: searchTerm && (
+                      <InputAdornment position="end">
+                        <CloseIcon
+                          onClick={() => handleSearchChange({ target: { value: "" } })}
+                          className="cursor-pointer"
+                          style={{ color: "#1976d2" }}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
+                  className="max-w-lg rounded-lg shadow-white bg-white/70"
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "20px",
+                    },
+                    "& .MuiInputAdornment-root": {
+                      color: "#1976d2",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "#1976d2",
+                    },
+                  }}
+                />
+              </div>
             )}
 
             {/* News Content */}
