@@ -7,7 +7,16 @@ import { Link } from "react-router-dom";
 import ErrorImage from "../images/error.svg"
 import { database } from "../firebase/setup";
 import { doc, setDoc } from "firebase/firestore";
-
+import DNews1 from "../images/dnews1.png"
+import DNews2 from "../images/dnews2.png"
+import DNews3 from "../images/dnews3.png"
+import DNews4 from "../images/dnews4.png"
+import DNews5 from "../images/dnews5.png"
+import DNews6 from "../images/dnews6.png"
+import DNews7 from "../images/dnews7.png"
+import DNews8 from "../images/dnews8.png"
+import DNews9 from "../images/dnews9.png"
+import DNews10 from "../images/dnews10.png"
 
 function Home(props) {
 
@@ -32,7 +41,7 @@ function Home(props) {
         }
 
     }
-
+    const defaultImages = [DNews1, DNews2, DNews3, DNews4, DNews5, DNews6,DNews7,DNews8,DNews9,DNews10];
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
     };
@@ -45,23 +54,23 @@ function Home(props) {
         setLoading(true);
         setError("");
         const apiKeys = [
-            "f4f24631b8794156aeea0bec12b39c6a",
-            "4e07be5763c44a839f58df9c4f8f7ede",
-            "ebb6c92a82fd42e983aabce9baea7916"
+          "081b56565f1f5872e9cfc85418fd43c9",
+          "eac0f172d397b0352f6f89ae176aa8c4"
+
         ];
         const getRandomApiKey = () => {
             const randomIndex = Math.floor(Math.random() * apiKeys.length);
             return apiKeys[randomIndex];
         };
         const apiKey = getRandomApiKey();
-        fetch(`https://newsapi.org/v2/everything?q=${props?.menu ? props.menu : "default"}&sortBy=popularity&apiKey=${apiKey}`)
+        fetch(`http://api.mediastack.com/v1/news?keywords=${props?.menu ? props.menu : "all"}&access_key=${apiKey}`)
             .then(res => res.json())
             .then(json => {
                 if (json.status === 'error' && json.code === 'rateLimited') {
 
                     setError("Oops! You've hit the request limit. Please try again in a few minutes.");
                 } else {
-                    setNewsData(json.articles);
+                    setNewsData(json.data);
                 }
                 setLoading(false);
             })
@@ -153,7 +162,8 @@ function Home(props) {
                                     window.open(data.url, "_blank");
                                 }}
                                 className="rounded-t-lg w-full h-48 object-cover cursor-pointer"
-                                src={data.urlToImage}
+                                src={data.image!==null ? data.image : defaultImages[Math.floor(Math.random() * defaultImages.length)]}
+                            
                                 alt={data.title}
                             />
 
@@ -163,7 +173,7 @@ function Home(props) {
                                     {data?.title ?? ""}
                                 </h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                    {data?.content ?? ""}
+                                    {data?.description ?? ""}
                                 </p>
                                 <Link onClick={() => addnews(data)} to="/details" key={index} state={{ data: data }}>
                                     <button
