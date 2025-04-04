@@ -152,6 +152,27 @@ function Home(props) {
                         <img src={NoData} alt="No Data Found" width={450} height={450} className="mx-auto mb-2 xl:mt-0 lg:mt-0 mt-6" />
                         <p className="text-xl font-semibold">No results found based on your filter criteria.</p>
                     </div>
+                ) : !newsData  ? (
+                    <div className="col-span-3 text-center">
+                        <img src={ErrorImage} alt="No Data Found" width={400} height={400} className="mx-auto mb-0  xl:mt-0 lg:mt-0 mt-[5.5rem]" />
+                        <p className="text-xl font-semibold text-red-500">Oops! You&rsquo;ve hit the request limit. Please try again in a few minutes.</p>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={getNews}
+                            sx={{
+                                mt: 1,
+                                mb:10,
+                                backgroundColor: "#000000",  // Black background color
+                                '&:hover': {
+                                    backgroundColor: "#333333",  // Slightly lighter black for the hover effect
+                                }
+                            }}
+
+                        >
+                            Retry
+                        </Button>
+                    </div>
                 ) : (
                     filteredNews && filteredNews.map((data, index) => (
 
@@ -205,7 +226,10 @@ function Home(props) {
 
                     ))
                 )}
+
+
             </div>
+
         </div >
     );
 }
