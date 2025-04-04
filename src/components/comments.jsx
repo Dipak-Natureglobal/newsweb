@@ -38,7 +38,7 @@ function Comments(props) {
             });
 
             toast.success("Your comment has been posted successfully!");
-            setComments(""); 
+            setComments("");
             showAllComments();
         } catch (err) {
             console.log(err);
@@ -67,7 +67,7 @@ function Comments(props) {
         if (props.url) {
             showAllComments();
         }
-    }, [props.url]); 
+    }, [props.url]);
 
     return (
         <div className="grid grid-row-2">
@@ -95,7 +95,7 @@ function Comments(props) {
                     >
                         ADD
                     </button>
-                    
+
                 </div>
                 {error && <p className="text-red-500 text-sm ml-2">{error}</p>}
             </div>

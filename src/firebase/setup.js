@@ -3,13 +3,13 @@ import { getAuth, GoogleAuthProvider, setPersistence, browserLocalPersistence } 
 import { getFirestore } from "firebase/firestore";
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA0bIBQDkhGqU4IiseqVyO9mVYPizcfRCE",
-  authDomain: "newsweb-a72d1.firebaseapp.com",
-  projectId: "newsweb-a72d1",
-  storageBucket: "newsweb-a72d1.firebasestorage.app",
-  messagingSenderId: "320430645717",
-  appId: "1:320430645717:web:be5161005f5200c8ef5d5c",
-  measurementId: "G-QG9Y9XV026"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
