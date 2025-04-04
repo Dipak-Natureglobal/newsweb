@@ -24,7 +24,7 @@ function Home(props) {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [error, setError] = useState("");
-    
+
 
 
 
@@ -41,7 +41,7 @@ function Home(props) {
         }
 
     }
-    const defaultImages = [DNews1, DNews2, DNews3, DNews4, DNews5, DNews6,DNews7,DNews8,DNews9,DNews10];
+    const defaultImages = [DNews1, DNews2, DNews3, DNews4, DNews5, DNews6, DNews7, DNews8, DNews9, DNews10];
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
     };
@@ -54,8 +54,9 @@ function Home(props) {
         setLoading(true);
         setError("");
         const apiKeys = [
-          "081b56565f1f5872e9cfc85418fd43c9",
-          "eac0f172d397b0352f6f89ae176aa8c4"
+            "795145d25e6093880ccc57917f7aa80b",
+            "081b56565f1f5872e9cfc85418fd43c9",
+            "eac0f172d397b0352f6f89ae176aa8c4"
 
         ];
         const getRandomApiKey = () => {
@@ -66,7 +67,7 @@ function Home(props) {
         fetch(`https://api.mediastack.com/v1/news?keywords=${props?.menu ? props.menu : "all"}&access_key=${apiKey}`)
             .then(res => res.json())
             .then(json => {
-                if (json.status === 'error' && json.code === 'rateLimited') {
+                if (json.status === 'error' && json.code === 'usage_limit_reached') {
 
                     setError("Oops! You've hit the request limit. Please try again in a few minutes.");
                 } else {
@@ -162,8 +163,8 @@ function Home(props) {
                                     window.open(data.url, "_blank");
                                 }}
                                 className="rounded-t-lg w-full h-48 object-cover cursor-pointer"
-                                src={data.image!==null ? data.image : defaultImages[Math.floor(Math.random() * defaultImages.length)]}
-                            
+                                src={data.image !== null ? data.image : defaultImages[Math.floor(Math.random() * defaultImages.length)]}
+
                                 alt={data.title}
                             />
 
