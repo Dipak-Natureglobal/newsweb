@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Comments from "./comments";
 import LoginIcon from '@mui/icons-material/Login';
@@ -13,10 +13,15 @@ function NewsDetails() {
     const location = useLocation();
     const navigateToHome = useNavigate();
     const navigateToSingup = useNavigate();
+    useEffect(() => {
+        if (!location.state || !location.state.data) {
+            navigateToHome("/");
+        }
+    }, [location, navigateToHome]);
+
     if (!location.state || !location.state.data) {
-        navigateToHome("/"); 
-        return null; 
-      }
+        return null; // Don't render anything while redirecting
+    }
     const logout = async () => {
             try {
                 await signOut(auth);
